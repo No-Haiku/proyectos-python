@@ -1,0 +1,34 @@
+<html>
+    <body>
+     {%include "superior/barra.html"%}    
+    <h1 style ="color:red">
+     Hola Mundo estoy usando platilla
+    </h1>
+    {% if nombre_persona == 'Gianfranco'%}
+     <p>El curso es dado por el profesor {{nombre_persona.upper}}</p>
+     {% else %}
+     <p>El curso no esta dado por el profesor titular</p>
+    {%endif%}
+    <p>El nombre del profesor es: {{nombre_persona.upper }} {{ apellido_persona.upper}} </p>
+    <p>La fecha actual es {{hora_actual.day}}/ {{hora_actual.month}}/ {{hora_actual.year}}</p>
+    <p><strong>Temas del curso:</strong></p>
+    <p>
+        <ul>
+         {% if temas %}
+            {% for i in temas %}
+         
+            <li>{{i.upper}}</li>
+         
+            {% endfor %}
+         
+            {% else %}
+            <p>no hay nada que mostrar</p>
+           
+        {%endif%}
+
+         
+
+        </ul>
+    </p>
+    </body>
+    </html>
