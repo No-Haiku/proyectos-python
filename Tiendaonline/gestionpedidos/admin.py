@@ -17,5 +17,5 @@ class pedidosAdmin(admin.ModelAdmin):
     date_hierarchy="fecha"
 
 admin.site.register(clientes,clientesAdmin)
-admin.site.register(articulos,articulosAdmin)
+admin.site.register(Articulos,articulosAdmin)
 admin.site.register(pedidos,pedidosAdmin)

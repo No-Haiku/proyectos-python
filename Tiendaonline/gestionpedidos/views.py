@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from gestionpedidos.models import articulos
 from django.core.mail import send_mail
 from django.conf import settings
+from gestionpedidos.forms import FormularioContacto
 
 # Create your views here.
 
@@ -30,16 +31,31 @@ def contacto(request):
 
     if request.method=="POST":
 
-        subject=request.POST["asunto"]#almacena el asunto
+        miFormulario=FormularioContacto(request.POST)
+
+        if miFormulario.is_valid():
+
+            infform=miFormulario.cleaned_data#informacion Formulario
+
+            send_mail(infform['asunto'],infform['mensaje'],infform.get('email','jhonkeee@gmail.com'),['gian.f-neira@live.com'],)
+
+            return render(request,"gracias.html")
+    else:
+        miFormulario=FormularioContacto()
+    
+    return render(request,"formulario_contacto.html",{"form":miFormulario})
+
+        #subject=request.POST["asunto"]#almacena el asunto
         
-        message=request.POST["mensaje"] +" "+ request.POST["email"]#almacena el mensaje y email
+        #message=request.POST["mensaje"] +" "+ request.POST["email"]#almacena el mensaje y email
         
-        email_from=settings.EMAIL_HOST_USER #de donde viene el email que se envia
+        #email_from=settings.EMAIL_HOST_USER #de donde viene el email que se envia
 
-        recipient_list=["gian.f-neira@live.com"]#donde quiero que lleguen los msjs
+        #recipient_list=["gian.f-neira@live.com"]#donde quiero que lleguen los msjs
 
-        send_mail(subject, message, email_from, recipient_list)#recordar separar las listas con espacio
+        #send_mail(subject, message, email_from, recipient_list)#recordar separar las listas con espacio
 
-        return render(request,"gracias.html")
+        #return render(request,"gracias.html")
 
-    return render(request,"contacto.html")
+    #return render(request,"contacto.html")
+    #-------------------------------------------------------------------------------------------------------
